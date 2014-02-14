@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2012, 2014, Oracle and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="newtimeline.TimelineController">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem fx:id="newMenu" mnemonicParsing="false" onAction="#onNewMenu" text="New" />
+            <MenuItem fx:id="openMenu" mnemonicParsing="false" onAction="#onOpenMenu" text="Open…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="saveMenu" mnemonicParsing="false" onAction="#onSaveMenu" text="Save" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem fx:id="credits" mnemonicParsing="false" onAction="#onCredits" text="Credits" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <children>
+        <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" text="Drag components from Library here…" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+          <font>
+            <Font size="18.0" />
+          </font>
+        </Label><SplitPane dividerPositions="0.5880758807588076" focusTraversable="true" layoutX="1.0" orientation="VERTICAL" prefHeight="371.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+<children><ScrollPane fx:id="scrollPane" prefHeight="266.0" prefWidth="638.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns:fx="http://javafx.com/fxml">
+  <content>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+  </content>
+</ScrollPane>
+</children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" SplitPane.resizableWithParent="false">
+<children><TabPane prefHeight="148.0" prefWidth="638.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns:fx="http://javafx.com/fxml">
+  <tabs>
+    <Tab text="Add Event">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+<children><TextField fx:id="title" layoutX="14.0" layoutY="75.0" promptText="Title" /><Button fx:id="addEvent" layoutX="511.0" layoutY="32.0" mnemonicParsing="false" onAction="#onAddEvent" text="Add Event" /><CheckBox fx:id="durationEvent" layoutX="14.0" layoutY="36.0" mnemonicParsing="false" onAction="#onDurationEvent" text="Duration Event" /><TextField fx:id="endYear" layoutX="180.0" layoutY="75.0" prefHeight="26.0" prefWidth="90.0" promptText="End Year" /><TextField fx:id="startDay" layoutX="388.0" layoutY="32.0" prefHeight="26.0" prefWidth="90.0" promptText="Start Day" /><TextField fx:id="endDay" layoutX="388.0" layoutY="75.0" prefHeight="26.0" prefWidth="90.0" promptText="End Day" /><TextField fx:id="startYear" layoutX="180.0" layoutY="32.0" prefHeight="26.0" prefWidth="90.0" promptText="Start Year" /><TextField fx:id="startMonth" layoutX="285.0" layoutY="32.0" prefHeight="26.0" prefWidth="90.0" promptText="Start Month" /><TextField fx:id="endMonth" layoutX="285.0" layoutY="75.0" prefHeight="26.0" prefWidth="90.0" promptText="End Month" /><Label fx:id="addEventStatus" layoutX="497.0" layoutY="67.0" prefHeight="41.0" prefWidth="111.0" textFill="#db0707" /><Label layoutX="310.0" layoutY="14.0" text="(1-12)" /><Label layoutX="405.0" layoutY="14.0" text="(1-31)" /><Label layoutX="196.0" layoutY="14.0" text="(1-2015)" />
+</children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="Delete Event">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+<children><Button fx:id="deleteEvent" layoutX="63.0" layoutY="42.0" mnemonicParsing="false" onAction="#onDeleteEvent" prefHeight="29.0" prefWidth="102.0" text="Delete Event" /><TextField fx:id="deleteEventName" layoutX="207.0" layoutY="45.0" prefHeight="26.0" prefWidth="173.0" promptText="Event Name" /><Label fx:id="deleteEventStatus" layoutX="446.0" layoutY="49.0" prefHeight="17.0" prefWidth="165.0" textFill="#d30606" />
+</children></AnchorPane>
+      </content>
+    </Tab>
+  </tabs>
+</TabPane>
+</children></AnchorPane>
+  </items>
+</SplitPane>
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>

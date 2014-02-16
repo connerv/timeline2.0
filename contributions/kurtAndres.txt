@@ -1,0 +1,10 @@
+2/05/14 Group had first meeting, began work on implementing the event. I decided to use an interface so the group has an api they can call. Then implemented getter and setter methods for Atomic and Duration Events.
+2/09/14 Built timeline as hashTree and began to implement methods for add, remove, display, save, and load.
+2/10/14 Resolved merge conflics, added Andrew's contributions, and cleaned/ organized project structure.At this point project is broken. Must be JavaFX scene builder andrew used. Request fix.
+2/10/14 Finished all timeline structure, events, and storing in order algorithm
+2/11/14 Began work fixing timeline events with conner
+2/12/14 Changed structure of events to encompass ints and created system to store key vaule as int for timeline events in order.
+2/13/14 Spent four hours with conner trying to fix andrew’s guy and make a working model. has wrong fields. has date of birth, and born year etc. Not going to work for our project.
+2/13/14 attempted to re-work project, resolved to conner building new GUI
+2/14/14 worked on edge cases on GUI, pulled conner's gui began work on new one
+2/15/14 put all boundary case checks, sanity checks, menu fixes, input checks, input exceptions, overflow exception, and rendering exceptions. Added algorithms to fix 9 null pointer exceptions in timeline rendering and removed button import while resolving save functionality.

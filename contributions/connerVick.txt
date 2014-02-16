@@ -1,0 +1,7 @@
+Conner's Contributions
+
+-Built entire GUI
+-Built functions for loading, saving, and rendering timeline.
+-Completely refactored program into new program, repo, and new driver (timeline controller
+-Built new Timeline Controller with all rendering functionality that was originally assigned to him in team task delegation meeting.
+

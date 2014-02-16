@@ -13,7 +13,6 @@ public class DurationEvent implements Event, Serializable{
      // atomic or not
         public boolean isDuration;
 	public String name; //event name
-	public String description; //event description
         
         public int endYear;
         public int endMonth;
@@ -27,7 +26,7 @@ public class DurationEvent implements Event, Serializable{
         
 
 
-        public void setEvent(String n, int sY, int sM, int sD, int eY, int eM, int eD, String d){
+        public void setEvent(String n, int sY, int sM, int sD, int eY, int eM, int eD){
 		name = n;
                 startYear = sY;
                 startMonth = sM;
@@ -35,7 +34,6 @@ public class DurationEvent implements Event, Serializable{
                 endYear = eY;
                 endMonth = eM;
                 endDay = eD;
-		description = d;
                 isDuration = true;
                 
                 String tempIDstring;
@@ -87,10 +85,6 @@ public class DurationEvent implements Event, Serializable{
            timelineID = Integer.parseInt(tempIDstring);
         }
         
-	public void setDescription(String d){
-		description = d;
-	}
-        
 	public String getName(){
 		return name;
 	}
@@ -122,9 +116,6 @@ public class DurationEvent implements Event, Serializable{
             return timelineID;
         }
 
-	public String getDescription() {
-		return description;
-	}
         public boolean getDuration(){
             return isDuration;
         }

@@ -33,11 +33,7 @@ public class NewTimeline extends Application {
           //rootLayout = (BorderPane) loader.load();
           Scene scene = new Scene(root,640,400);
           primaryStage.setScene(scene);
-          primaryStage.show();
-          
-      
-      
-      
+          primaryStage.show();  
   }
   
   /**
@@ -47,8 +43,6 @@ public class NewTimeline extends Application {
   public Stage getPrimaryStage() {
       return primaryStage;
   }
-  
- 
   
   public static void main(String[] args) {
       launch(args);

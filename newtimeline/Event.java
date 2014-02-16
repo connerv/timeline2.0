@@ -7,14 +7,8 @@ package newtimeline;
 
 public interface Event {
     
-       
-    
-    
-    
 	//sets the total event except for endDate if DurationEvent
-    
-        
-	public void setEvent(String name, int startYear, int startMonth, int startDay, int endYear, int endMonth, int endDay, String description);
+	public void setEvent(String name, int startYear, int startMonth, int startDay, int endYear, int endMonth, int endDay);
 
 	//set event name
 	public void setName(String n);
@@ -40,9 +34,6 @@ public interface Event {
 	//set end day
 	public void setEndDay(int sD);
 
-	//sets event Description
-	public void setDescription(String d);
-
 	//return event Name
 	public String getName();
 
@@ -66,9 +57,6 @@ public interface Event {
         
         //return timelineID
         public int getID();
-        
-	//returns event Description
-	public String getDescription();
         
         //duration or not
         public boolean getDuration();

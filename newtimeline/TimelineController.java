@@ -1,4 +1,8 @@
 package newtimeline;
+/*
+//@author Kurt Andres
+//@author Conner Vick
+*/
 
 import java.net.URL;
 import java.util.Iterator;
@@ -61,6 +65,7 @@ public class TimelineController implements Initializable {
             ot.start();
   }
   @FXML
+          //delete timeline event from treeMap re-render timeline
   void onDeleteEvent(ActionEvent event){
      Iterator iter = timeline.timelineEvents.keySet().iterator();
         String name = deleteEventName.getText();
@@ -69,8 +74,15 @@ public class TimelineController implements Initializable {
             if (next.getName().equals(name)){
                 timeline.removeEvent(next);
                 deleteEventStatus.setText(name+" deleted");
+                //placed check inside update timeline to make sure it's not empty which results in null pointer exception
                 updateTimeline();
-                return;
+                
+                deleteEventName.setText("Enter Event to Delete");
+                return; 
+                
+            }else{
+                updateTimeline();
+                deleteEventStatus.setText("Timeline Empty");
             }
         }
         deleteEventStatus.setText("Unable to find "+name);
@@ -89,6 +101,11 @@ public class TimelineController implements Initializable {
 
   }
   @FXML
+  /*extensive testing shows this new thread can cause error if
+  //"Process manager already initialized: can't fully enable headless mode."
+  //on mac OS X
+  //not problem on linux
+  */
   void onSaveMenu(ActionEvent event){
       savesThread st = new savesThread();
       st.start();
@@ -99,8 +116,10 @@ public class TimelineController implements Initializable {
   }
   @FXML
     void onAddEvent(ActionEvent event) {
-        
+        //listener for adding event
         try{
+           //trys to add start events if integer input
+            //sets end dates to 1 which would get set over if duration event
          Event eve;
          int sy = Integer.parseInt(startYear.getText());
          int ey =1;
@@ -108,24 +127,63 @@ public class TimelineController implements Initializable {
          int em = 1;
          int sd = Integer.parseInt(startDay.getText());
          int ed = 1;
+        
+         //if isDuration box is selected we set end date fields
          if(isDuration){
              ey = Integer.parseInt(endYear.getText());
              em = Integer.parseInt(endMonth.getText());
              ed = Integer.parseInt(endDay.getText());
          }
-        
-         if(sy>0 && sy<2015 && ey>0 && ey<2015 && sm>0 && sm<13 && em>0 && em<13 && sd>0 && sd<31 && ed>0 && ed<31){
-             
+         
+         //now we reset all text boxes so they're empty
+         endDay.setText("");
+         endMonth.setText("");
+         endYear.setText("");
+         startDay.setText("");
+         startMonth.setText("");
+         startYear.setText("");
+        //slightly unwieldy but working sanity check for valid inputs
+         //might have what we called a 'bad smell'
+                         
+         if(sy>0 && sy<2015 && ey>0 && ey<2015 && sm>0 && sm<13 && em>0 && em<13 && sd>0 && sd<=31 && ed>0 && ed<=31 && (((sm == 9 || sm == 4 || sm == 6 || sm == 11) && sd<=30)||(sm==2 && sd<30)|| ((sm == 1 || sm == 3 || sm == 5 || sm == 7 || sm==8 || sm==10 || sm==12)&&sd<=31 )) && (((em == 9 || em == 4 || em == 6 || em == 11) && ed<=30)||(em==2 && ed<30)|| ((em == 1 || em == 3 || em == 5 || em == 7 || em==8 || em==10 || em==12)&&ed<=31 ))){
+             if((ey-sy)<80){
          
             if(isDuration){
+                if((ey-sy)>78){
+               addEventStatus.setText("Too Long for Memory");
+               //this is a simple check to ensure its not greater than 80yrs because this overflows memory for some reason
+               return;
+                }
+                else if(ey>sy|| (ey==sy && em==sm && ed>sy)|| (ey==sy && em>sm)){
                 eve = new DurationEvent();
-                eve.setEvent(title.getText(), sy, sm, sd, ey, em, ed, "");
+                eve.setEvent(title.getText(), sy, sm, sd, ey, em, ed);
+                //update min max for memory checks
+                
+                addEventStatus.setText(title.getText()+ " added.");
+                }else{
+                    addEventStatus.setText("not a valid Event");
+                    return;
+                }
             }else{
                 eve = new AtomicEvent();
-                eve.setEvent(title.getText(), sy, sm, sd, 0, 0, 0, "");
+                eve.setEvent(title.getText(), sy, sm, sd, 0, 0, 0);
+                addEventStatus.setText(title.getText()+ " added.");
             }
             timeline.addEvent(eve);
+            
+            if((timeline.max-timeline.min)<79){
             updateTimeline();
+            }else{
+                //Timeline is too spread out, larger than 80yrs so memory error
+                //need to remove last event 
+                timeline.removeEvent(eve);
+                timeline.max=timeline.oldmax;
+                timeline.min=timeline.oldmin;
+                System.out.println("Timeline grew too large for memory, event not added");
+                addEventStatus.setText("Too large");
+            }
+           }
+             
         }else{
           addEventStatus.setText("not a valid Event");
         }
@@ -138,17 +196,31 @@ public class TimelineController implements Initializable {
   * The constructor is called before the initialize() method.
   */
   public TimelineController() {
-      
+      //more than likely do nothing here
+      //empty constructor
   }
   
   /**
   * Initializes the controller class. 
   */
+  //call to upate timeline
   public void updateTimeline(){
+      //make sure before we update timeline isn't empty causing null pointer
+         if(timeline.timelineNotEmpty()){
+             
          timelineRender tlr = new timelineRender();
          Canvas can = tlr.getTimelineRender(timeline);
          scrollPane.setContent(can);
+             }
+        
+            else{
+             //if here, timeline empty
+            Canvas canvas = new Canvas(100+(50)*100, 1000);
+            //clear canvas and set to blank canvas
+            scrollPane.setContent(canvas);
+         }
    }
+  //new timeline thread
     class newThread extends Thread{
       public void run(){
             String name;
@@ -157,6 +229,7 @@ public class TimelineController implements Initializable {
             JOptionPane.showMessageDialog(null,"timeline started, add new event to render");
       }
   }
+    //dialogue to load timeline
     class openThread extends Thread{
       public void run(){
             Timeline tl = IO.getFile();
@@ -167,7 +240,9 @@ public class TimelineController implements Initializable {
                 JOptionPane.showMessageDialog(null,"Load Failed");
             }
       }
-    }   
+    }  
+    
+    //opens dialogue to savetimeline form menu
  class savesThread extends Thread{
      
         public void run(){
@@ -178,6 +253,14 @@ public class TimelineController implements Initializable {
             
       }
   }
+ 
+ /*extensive testing shows this new thread can cause error if
+  //"Process manager already initialized: can't fully enable headless mode."
+  //on mac OS X
+  //not problem on linux
+  */
+ 
+ //simple class to display credits when selected from menu
   class creditsThread extends Thread{
      
         public void run(){

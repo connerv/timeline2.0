@@ -4,16 +4,12 @@ import java.io.*;
  * @author Kurt Andres
  *
  */
-//may want to use the following for simple date output for getDate()
-//import java.text.SimpleDateFormat;
-
 public class AtomicEvent implements Event, Serializable {
 
-         // atomic or not
+        // atomic event or not
         public boolean isDuration;
         
 	public String name; //event name
-        public String description; //event description
         
         public int startYear;
         public int startMonth;
@@ -25,7 +21,7 @@ public class AtomicEvent implements Event, Serializable {
         
 	public int timelineID; //event start date as continuous string for treeMap key
 
-	public void setEvent(String n, int sY, int sM, int sD, int eY, int eM, int eD, String d){
+	public void setEvent(String n, int sY, int sM, int sD, int eY, int eM, int eD){
 		name = n;
                 startYear = sY;
                 startMonth = sM;
@@ -33,7 +29,6 @@ public class AtomicEvent implements Event, Serializable {
                 endYear = 0;
                 endMonth = 0;
                 endDay = 0;
-		description = d;
                 isDuration = false;
                 
                 //set timelineID
@@ -88,10 +83,6 @@ public class AtomicEvent implements Event, Serializable {
 		endDay= 0;
 	}
 
-	public void setDescription(String d){
-		description = d;
-	}
-
 	public String getName(){
 		return name;
 	}
@@ -127,9 +118,6 @@ public class AtomicEvent implements Event, Serializable {
             return timelineID;
         }
         
-	public String getDescription(){
-		return description;
-	}
         public boolean getDuration(){
             return isDuration;
         }
